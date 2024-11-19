@@ -3,7 +3,7 @@ Demo application for the reachability project.
 
 
 # Usage
-java -jar ./reachability-demo.jar --fromDate <date> --toDate <date> --outputPath <path> --dont-scan --enginePath <path> --sourceRootPath <path>  
+java -jar ./reachability-demo.jar --fromDate [date] --toDate [date] --outputPath [path] --dont-scan --enginePath [path] --sourceRootPath [path] --partnerToken [token]  
 
 Where:  
 **--fromDate**: The date from where to start query the DB in the following format: yyyy-MM-dd. Mandatory.  
@@ -12,8 +12,14 @@ Where:
 **--dont-scan**: Use this flag to skip the scan phase. Optional. Default: false.  
 **--enginePath**: The full path to the mend executable engine. Mandatory if --dont-scan==false.  
 **--sourceRootPath**: The path to the root of the source dir. Mandatory if --dont-scan==false.  
-**--requestToken**: The API request token as recieved from Mend. Mandatory.  
+**--partnerToken**: The API request token as received from Mend. Mandatory.  
 
-Example: `java -jar ./reachability-demo.jar --fromDate 2018-07-01 --toDate 2018-07-02  --outputPath /home/user/reachability/output --enginePath /home/user/engine --sourceRootPath /home/user/reachability/sources --requestToken dummy-token`  
+Example: `java -jar ./reachability-demo.jar --fromDate 2018-07-01 --toDate 2018-07-02  --outputPath /home/user/reachability/output --enginePath /home/user/engine --sourceRootPath /home/user/reachability/sources --partnerToken dummy-token`  
 
-Example: `java -jar ./reachability-demo.jar --fromDate 2018-07-01 --toDate 2018-07-02  --outputPath /home/user/reachability/output --dont-scan --requestToken dummy-token`  
+Example: `java -jar ./reachability-demo.jar --fromDate 2018-07-01 --toDate 2018-07-02  --outputPath /home/user/reachability/output --dont-scan --partnerToken dummy-token`
+
+# Build
+To build the jar use the following command:
+`mvn clean install`. This will create the `reachability-demo.jar` file under the `./target` folder  
+
+Tested with `Apache Maven 3.9.5` on `Java version: 17.0.2`
