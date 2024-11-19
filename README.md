@@ -1,5 +1,5 @@
-# Overview
-Demo application for the JetBrains-Mend reachability project.  
+# Reachability Demo Application
+Demo application for the reachability project.  
 
 
 # Usage
