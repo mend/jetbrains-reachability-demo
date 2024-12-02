@@ -11,8 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Arrays;
 
 @SpringBootApplication
 @Slf4j
@@ -116,6 +115,12 @@ public class DemoApplication implements CommandLineRunner {
 
 			else if (currentArg.equals("--partnerToken")){
 				result.setPartnerToken( args[++currentIndex] );
+			}
+
+			else if (currentArg.equals("--findSha1")){
+				String sha1s = args[++currentIndex];
+				result.setFindSha1( sha1s );
+				result.getFindSha1s().addAll( Arrays.stream(sha1s.split(",")).toList() );
 			}
 
 			if (result.getToDate() == null){

@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Data
@@ -28,6 +30,8 @@ public class ArgsDto {
     private Path outputPath = null;
     private boolean scan = true;
     private String partnerToken = null;
+    private String findSha1 = null;
+    private List<String> findSha1s = new ArrayList<>();
 
 
     public boolean validate(){

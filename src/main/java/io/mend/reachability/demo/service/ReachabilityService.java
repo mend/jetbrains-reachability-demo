@@ -39,7 +39,7 @@ public class ReachabilityService {
         for (LocalDate date = start; !date.isAfter(end) && !date.isEqual(end); date = date.plusDays(1)) {
             stats.incrementNumOfDays();
 
-            List<VulnerabilityDto> vulnerabilities = scaClient.getAllVulnerabilitiesBetweenDates(date, date.plusDays(1), argsDto.getPartnerToken() );
+            List<VulnerabilityDto> vulnerabilities = scaClient.getAllVulnerabilitiesBetweenDates(date, date.plusDays(1), argsDto.getPartnerToken(), argsDto.getFindSha1s() );
             stats.addToNumOfVulnerabilities(vulnerabilities.size());
 
             //Unify the resource vulnerabilities and filter the empty once
@@ -50,7 +50,9 @@ public class ReachabilityService {
                     .collect(Collectors.toSet());
             stats.addToNumOfResourceVulnerabilities(resourceVulnerabilities.size());
 
-            fetchVulnerabilityElements(resourceVulnerabilities, argsDto, stats);
+            if (argsDto.getFindSha1() == null) {
+                fetchVulnerabilityElements(resourceVulnerabilities, argsDto, stats);
+            }
         }
 
 
@@ -170,6 +172,7 @@ public class ReachabilityService {
                 .filter(x-> x.getVulnerableEntities() != null)
                 .filter(x-> !x.getVulnerableEntities().isEmpty())
                 .flatMap(x-> x.getVulnerableEntities().stream())
+                .filter(VulnerableEntity::isNotEmpty)
                 .map(VulnerableEntity::getLanguage)
                 .filter(Objects::nonNull)
                 .filter(this::isLanguageSupported)

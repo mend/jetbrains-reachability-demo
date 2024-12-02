@@ -32,7 +32,7 @@ public class Config {
         ExchangeStrategies strategies = ExchangeStrategies.builder()
                 .codecs(configurer -> configurer
                         .defaultCodecs()
-                        .maxInMemorySize(10 * 1024 * 1024))  // 10 MB buffer
+                        .maxInMemorySize(50 * 1024 * 1024))  // 50 MB buffer
                 .build();
 
         return builder

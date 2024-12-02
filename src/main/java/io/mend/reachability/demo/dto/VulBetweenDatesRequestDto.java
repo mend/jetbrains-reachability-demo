@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @ToString
@@ -21,5 +23,5 @@ public class VulBetweenDatesRequestDto {
 
     private String from;
     private String to;
-
+    private List<String> componentType = List.of( "MAVEN_ARTIFACT", "JAVA_ARCHIVE", "DOT_NET_RESOURCE", "DOT_NET_AS_GENERIC_RESOURCE", "PYTHON_PACKAGE", "NODE_PACKAGED_MODULE", "JAVA_SCRIPT_LIBRARY", "NUGET_PACKAGE_MODULE");
 }

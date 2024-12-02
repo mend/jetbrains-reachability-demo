@@ -22,4 +22,15 @@ public class VulnerableEntity {
     private String language;
     private String type;
 
+    public boolean isEmpty(){
+        return element.equals("CrossLanguage.CrossLanguage:CrossLanguage") &&
+        namespace.equals("CrossLanguage") &&
+        className.equals("CrossLanguage") &&
+        method.equals("CrossLanguage");
+    }
+
+    public boolean isNotEmpty(){
+        return !isEmpty();
+    }
+
 }

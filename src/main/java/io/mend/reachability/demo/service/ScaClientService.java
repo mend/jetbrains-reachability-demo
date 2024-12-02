@@ -25,7 +25,7 @@ public class ScaClientService {
         this.webClient = webClient;
     }
 
-    public List<VulnerabilityDto> getAllVulnerabilitiesBetweenDates(LocalDate from, LocalDate to, String partnerToken){
+    public List<VulnerabilityDto> getAllVulnerabilitiesBetweenDates(LocalDate from, LocalDate to, String partnerToken, List<String> findSha1s){
 
         log.info(">> getAllVulnerabilitiesBetweenDates: from: {}, to: {}", from, to);
 
@@ -38,6 +38,27 @@ public class ScaClientService {
             try {
                 response = getPageOfVulnerabilitiesBetweenDates(from, to, partnerToken, page);
                 if (response != null && response.getNewVulnerabilities() != null) {
+
+                    if (!findSha1s.isEmpty()) {
+
+                        ResourceVulnerabilityDto dto = response
+                                .getNewVulnerabilities()
+                                .stream()
+                                .flatMap(x -> x.getResourceVulnerabilities().stream())
+                                .filter(x -> findSha1s.contains( x.getSha1() ) )
+                                .findFirst()
+                                .orElse(null);
+
+                        if (dto != null) {
+                            log.info("!!!Found resource vulnerability: {} (Sha1: {}) from: {}, to: {}, page: {}",
+                                    dto,
+                                    dto.getSha1(),
+                                    from.format(ArgsDto.formatter),
+                                    to.format(ArgsDto.formatter),
+                                    page);
+                        }
+                    }
+
                     result.addAll(response.getNewVulnerabilities());
                 }
             }
