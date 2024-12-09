@@ -114,6 +114,10 @@ public class DemoApplication implements CommandLineRunner {
 				result.setScan(false);
 			}
 
+			else if (currentArg.equals("--download-sources")){
+				result.setDownloadSources(true);
+			}
+
 			else if (currentArg.equals("--partnerToken")){
 				result.setPartnerToken( args[++currentIndex] );
 			}

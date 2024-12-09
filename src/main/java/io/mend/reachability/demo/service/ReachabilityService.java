@@ -18,13 +18,15 @@ import java.util.stream.Collectors;
 public class ReachabilityService {
 
     private final ScaClientService scaClient;
+    private final SourcesService sourcesService;
     private final FileUtilsService fileUtils;
     private final ProcessRunnerService processRunner;
 
-    public ReachabilityService(ScaClientService scaClient, FileUtilsService fileUtils, ProcessRunnerService processRunner) {
+    public ReachabilityService(ScaClientService scaClient, FileUtilsService fileUtils, SourcesService sourcesService, ProcessRunnerService processRunner) {
         this.scaClient = scaClient;
         this.fileUtils = fileUtils;
         this.processRunner = processRunner;
+        this.sourcesService = sourcesService;
     }
 
     public StatsDto fetchReachabilityData(ArgsDto argsDto) {
@@ -101,6 +103,9 @@ public class ReachabilityService {
 
                                     if (argsDto.isScan()) {
                                         boolean executionResult;
+                                        if (!fs.getSrcPath().toFile().exists() && argsDto.isDownloadSources()) {
+                                            sourcesService.downloadSources(resourceVulnerability, fs.getSrcPath().toString());
+                                        }
                                         if (fs.getSrcPath().toFile().exists()) {
 
                                             executionResult = executeCli(argsDto.getMendExecPath(), fs);
