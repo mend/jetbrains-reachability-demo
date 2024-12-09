@@ -29,6 +29,7 @@ public class ArgsDto {
     private Path srcRootPath = null;
     private Path outputPath = null;
     private boolean scan = true;
+    private boolean downloadSources = false;
     private String partnerToken = null;
     private String findSha1 = null;
     private List<String> findSha1s = new ArrayList<>();
